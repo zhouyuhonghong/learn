@@ -6,3 +6,6 @@ INSERT INTO `user` (id, username, password, role) VALUES ('5', 'user3', '1234', 
 INSERT INTO `user` (id, username, password, role) VALUES ('6', 'user4', '1234', 'user');
 
 COMMIT;
+
+INSERT INTO `music` (id, musicname, singer) VALUES ('1', '111', '按时');
+COMMIT;

@@ -20,8 +20,8 @@ public class MusicController {
     private MusicService musicService;
 
 
-    @RequestMapping("/music")
-    public ModelAndView user(@PathVariable Long id) {
+    @RequestMapping("/{id}")
+    public ModelAndView music(@PathVariable Long id) {
         ModelAndView mav = new ModelAndView();
         Music music = musicService.getMusic(id);
         mav.addObject("music", music);
@@ -35,6 +35,19 @@ public class MusicController {
         List<Music> musics = musicService.getMusics();
         mav.addObject("musics", musics);
         mav.setViewName("musics");
+        return mav;
+    }
+    @RequestMapping("/add")
+    public ModelAndView addMusic() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("music_add");
+        return mav;
+    }
+
+    @RequestMapping("/do_add")
+    public ModelAndView doAddMusicr(Music music) {
+        musicService.addMusic(music);
+        ModelAndView mav = new ModelAndView("redirect:/music/list");
         return mav;
     }
 }

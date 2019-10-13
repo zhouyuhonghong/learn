@@ -20,4 +20,7 @@ public class MusicService {
     public List<Music> getMusics() {
         return musicDao.findAll();
     }
+    public Music addMusic(Music music) {
+        return musicDao.save(music);
+    }
 }

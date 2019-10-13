@@ -22,23 +22,22 @@
     <div class="row">
       <div class="col-md-4">
         <ul class="nav nav-pills nav-stacked">
-          <li role="presentation" class="active"><a href="/music/list">列表</a></li>
-          <li role="presentation"><a href="/music/add">新增</a></li>
+          <li role="presentation"><a href="/music/list">列表</a></li>
+          <li role="presentation" class="active"><a href="/music/add">新增</a></li>
         </ul>
       </div>
       <div class="col-md-8">      
-        <table class="table table-hover">
-          <thead>
-          <th>ID</th><th>歌名</th><th>歌手</th>
-          </thead>
-          <tbody>
-          <#list musics as music>
-          <tr>
-          <td>${music.id}</td><td>${music.musicname}</td><td>${music.singer}</td>
-          </tr>
-          </#list>
-          </tbody>
-        </table>
+        <form action="/music/do_add">
+            <div class="form-group">
+                <label for="musicname">歌名</label>
+                <input type="text" class="form-control" id="musicname" name="musicname" placeholder="请输入歌名">
+            </div>
+            <div class="form-group">
+                <label for="singer">歌手</label>
+                <input type="singer" class="form-control" id="singer" name="singer" placeholder="请输入歌手">
+            </div>
+            <button type="submit" class="btn btn-default">确认</button>
+        </form>
       </div>
     </div>
   </div>
@@ -48,4 +47,4 @@
     <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
   </body>
-</html>
+</html> 

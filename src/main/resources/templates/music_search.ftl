@@ -22,26 +22,19 @@
     <div class="row">
       <div class="col-md-4">
         <ul class="nav nav-pills nav-stacked">
-          <li role="presentation" class="active"><a href="/music/list">列表</a></li>
+          <li role="presentation"><a href="/music/list">列表</a></li>
           <li role="presentation"><a href="/music/add">新增</a></li>
-          <li role="presentation"><a href="/music/search">搜索</a></li>
+          <li role="presentation" class="active"><a href="#">搜索</a></li>
         </ul>
       </div>
       <div class="col-md-8">      
-        <table class="table table-hover">
-          <thead>
-          <th>ID</th><th>歌名</th><th>歌手</th><th>删除</th><th>修改</th>
-          </thead>
-          <tbody>
-          <#list musics as music>
-          <tr>
-          <td>${music.id}</td><td>${music.musicname}</td><td>${music.singer}</td>
-          <td><a href="/music/delete/${music.id}">删除</a></td>
-          <td><a href="/music/modify/${music.id}">修改</a></td>
-          </tr>
-          </#list>
-          </tbody>
-        </table>
+        <form action="/music/do_search" method="get">
+            <div class="form-group">
+                <label for="keyword">歌名</label>
+                <input type="text" class="form-control" id="keyword" name="keyword" placeholder="请输入搜索歌名">
+            </div>
+            <button type="submit" class="btn btn-default">确认</button>
+        </form>
       </div>
     </div>
   </div>
@@ -51,4 +44,4 @@
     <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
   </body>
-</html>
+</html> 

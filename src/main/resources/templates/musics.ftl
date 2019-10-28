@@ -30,14 +30,15 @@
       <div class="col-md-8">      
         <table class="table table-hover">
           <thead>
-          <th>ID</th><th>歌名</th><th>歌手</th><th>删除</th><th>修改</th>
+          <th>ID</th><th>歌名</th><th>歌手</th><th>头像</th><th>删除</th><th>修改</th><th>上传头像</th>
           </thead>
           <tbody>
           <#list musics as music>
           <tr>
-          <td>${music.id}</td><td>${music.musicname}</td><td>${music.singer}</td>
+          <td>${music.id}</td><td>${music.musicname}</td><td>${music.singer}</td><td>${music.avatar}</td>
           <td><a href="/music/delete/${music.id}">删除</a></td>
           <td><a href="/music/modify/${music.id}">修改</a></td>
+          <td><a href="/music/add_avatar/${music.id}">上传</a></td>
           </tr>
           </#list>
           </tbody>

@@ -1,19 +1,25 @@
 package edu.hubu.learn.web;
 
+import java.io.File;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.hubu.learn.entity.Music;
 import edu.hubu.learn.service.MusicService;
-
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@Slf4j
 @RequestMapping("/music")
 public class MusicController {
 
@@ -54,6 +60,7 @@ public class MusicController {
 
     @RequestMapping("/do_add")
     public ModelAndView doAddMusicr(Music music) {
+        music.setAvatar("");
         musicService.addMusic(music);
         ModelAndView mav = new ModelAndView("redirect:/music/list");
         return mav;
@@ -69,6 +76,7 @@ public class MusicController {
 
     @RequestMapping("/do_modify")
     public ModelAndView doModifyMusic(Music music) {
+        music.setAvatar("");
         musicService.modifyMusic(music);
         ModelAndView mav = new ModelAndView("redirect:/music/list");
         return mav;
@@ -90,4 +98,29 @@ public class MusicController {
         mav.setViewName("musics");
         return mav;
     }
+
+     @RequestMapping("/add_avatar/{id}")
+     public ModelAndView addMusicAvatar(@PathVariable Long id) {
+         ModelAndView mav = new ModelAndView();
+         mav.addObject("music", musicService.getMusic(id));
+         mav.setViewName("music_add_avatar");
+         return mav;
+     }
+
+     @RequestMapping("/do_add_avatar/{id}")
+     public ModelAndView doAddMusicAvatar(@RequestParam("avatar") MultipartFile file, @PathVariable Long id) {
+         try {
+             String fileName = file.getOriginalFilename();
+             String filePath = ResourceUtils.getURL("classpath:").getPath() + "../../../resources/main/static/";
+             File dest = new File(filePath + fileName);
+             log.info(dest.getAbsolutePath());
+             file.transferTo(dest);
+             Music music = musicService.getMusic(id);
+             music.setAvatar(fileName);
+             musicService.modifyMusic(music);
+         } catch (Exception e) {
+             log.error("upload avatar error", e.getMessage());
+         }
+         return new ModelAndView("redirect:/music/list");
+     }
 }
